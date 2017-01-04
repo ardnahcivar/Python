@@ -1,0 +1,17 @@
+.footer{
+  margin-top: 80%;
+  height: 150px;
+  background-color: black;
+  text-align: center;
+}
+
+
+.footer_items>li{
+  display: inline-block;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  background-color:white;
+  border-style: solid;
+  border-color: red;
+}

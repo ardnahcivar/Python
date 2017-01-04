@@ -1,0 +1,10 @@
+{% extends "personal/header.html" %}
+{% block content %}
+<h1 style="font-size:120px;color:pink;text-align:center"></h1>
+    <div style="font-size:80px;color:white;text-align:center">
+        <form method="post" class="person-form">{% csrf_token %}
+                {{form.as_p}}
+                 <a href="\polls"><button type="submit" class="save btn btn-default">Save</button></a>
+        </form>
+    </div>
+{% endblock %}

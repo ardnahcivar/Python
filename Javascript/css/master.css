@@ -1,0 +1,18 @@
+body{
+  background-color: black;
+  color: white;
+}
+
+
+.input{
+margin-left: 40px;
+ font-size: 70px;
+ width: 800px;
+ height: 100px;
+}
+
+.input_block{
+  text-align: center;
+  font-size: 60px;
+  font-family: cursive,fantasy;
+}
