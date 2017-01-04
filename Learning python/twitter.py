@@ -19,6 +19,7 @@ print(places)
 place_id = places[0].id
 
 tweets = api.search(q="place:%s" % place_id)
+
 for tweet in tweets:
     print(tweet.text + " | " + tweet.place.name) if tweet.place else "Undefined place"
 

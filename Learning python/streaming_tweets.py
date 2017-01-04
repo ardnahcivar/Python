@@ -11,14 +11,33 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
-places = api.geo_search(query='INDIA',granularity="country")
+
+'''
+places  = api.geo_search(query='INDIA',granularity="country")
+place_id = places[0].id
+
+tweets = api.search(q="place:%s" % place_id)
+'''
+#places = api.geo_search(query='INDIA',granularity="country")
 
 class MyStreamListener(tweepy.StreamListener):
     def on_status(self, status):
-        print(status.text)
+            print('Name of place is'+str(status.place))
+            print('User name is ->'+status.user.screen_name+' Tweet is ->'+status.text)
+
+
+
+def filtering(myStream):
+    def country():
+        stream = myStream.filter(locations=[68.109700, 6.462700, 97.395359, 35.508701])
+        return stream
+    country()
 
 
 myStreamListener = MyStreamListener()
 myStream = tweepy.Stream(api.auth, listener=myStreamListener)
-myStream.filter(track=['Hello'],locations=[[[67.997691, 6.622513], [67.997691, 33.254896], [97.170672, 33.254896], [97.170672, 6.622513], [67.997691, 6.622513]]])
-
+myStream = filtering(myStream)
+myStream.filter(track=['hello'])
+#myStream.filter(locations=[68.109700,6.462700,97.395359,35.508701] AND track=['hello'])
+#locations=[-89.566389,42.998071,-89.246452,43.171916]
+# india locations=[39.19922, 46.86019, 126.38672, -8.32021]
