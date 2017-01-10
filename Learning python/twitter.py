@@ -12,6 +12,7 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
+print(api.me())
 places = api.geo_search(query="INDIA", granularity="country")
 print('places are')
 print(places)
@@ -19,6 +20,7 @@ print(places)
 place_id = places[0].id
 
 tweets = api.search(q="place:%s" % place_id)
+
 for tweet in tweets:
     print(tweet.text + " | " + tweet.place.name) if tweet.place else "Undefined place"
 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TWPICS</title>
+    <script>
+        function get_pict(){
+           var jobValue = document.getElementById('name').value;
+           var val = jobValue+'got it';
+           document.getElementById('mess').innerHTML = val;
+
+           var image_elem = document.createElement('img')
+           image_elem.setAttribute("src", "images/hydrangeas.jpg");
+           image_elem.setAttribute("height", "768");
+           image_elem.setAttribute("width", "1024");
+           image_elem.setAttribute("alt", "picture");
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1 id="mess">HEY</h1>
+        <form id='myform'>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name">
+                <button type="button" class="btn btn-primary" onclick="get_pict()">submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
