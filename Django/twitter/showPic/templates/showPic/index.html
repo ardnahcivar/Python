@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Josefin Slab">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -16,19 +17,23 @@
 
         function show_pict(image_url){
            console.log('in picture'+image_url)
-           var loc = document.getElementById('block')
+           var loc = document.getElementById('my-container')
            var image_elem = document.createElement('img')
            image_elem.setAttribute("src", image_url);
-           image_elem.setAttribute("height", "70");
-           image_elem.setAttribute("width", "70");
+           image_elem.setAttribute("height", "100");
+           image_elem.setAttribute("width", "100");
            image_elem.setAttribute("alt", "picture");
+           image_elem.setAttribute("display","block");
            image_elem.classList.add("img-circle")
+           image_elem.classList.add("img-responsive")
+           image_elem.classList.add("center-block")
            loc.appendChild(image_elem)
         }
 
         function sendUserName(){
             console.log('in send')
             var name  ={'name':username};
+            console.log('name is '+username);
             $.post(url,name,function(response){
                 if (typeof response === 'string' || response instanceof String){
                  show_pict(response);}
@@ -48,27 +53,42 @@
             });
         });*/
 
-
-            $("#submit").click(function(event){
+            $(document).ready(function(){
+                $("#submit").submit(function(event){
                 console.log("HEY")
+                console.log(document.getElementById('name').value);
                 username = document.getElementById('name').value;
                 console.log(username)
                 sendUserName();
+                event.preventDefault();
+                });
             });
-
-
-
-
     </script>
+
+    <style>
+        body{
+             font-size:40px;
+             font-family:Josefin Slab;
+             size:40px;
+        }
+        #name{
+            font-size:40px;
+            width:350px;
+            height:50px;
+        }
+        #submit{
+            text-align:center;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <form id="submit" method="post">
+    <div class="container" id="my-container">
+        <form  class="form-inline" id="submit" method="post">
             {% csrf_token %}
-            <div class="form-group" id="block">
-                <label for="name">Name:</label>
-                <input type="text" class="form-control" name="username" id="name">
-                <button type="submit" class="btn btn-primary">submit</button>
+            <div class="form-group has-success" id="block">
+                <label for="name">Name</label>
+                <input type="text" class="form-control form-control-has-success" name="username" id="name">
+                <button type="submit" class="btn btn-primary btn-lg">submit</button>
             </div>
         </form>
     </div>
