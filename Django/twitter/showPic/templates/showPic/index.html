@@ -7,28 +7,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TWPICS</title>
-    <script>
-        function get_pict(){
-           var jobValue = document.getElementById('name').value;
-           var val = jobValue+'got it';
-           document.getElementById('mess').innerHTML = val;
 
+    <script>
+
+        var username;
+        var url = "{% url 'showPic:userData' %}";
+        console.log(url)
+
+        function show_pict(image_url){
+           console.log('in picture'+image_url)
+           var loc = document.getElementById('block')
            var image_elem = document.createElement('img')
-           image_elem.setAttribute("src", "images/hydrangeas.jpg");
-           image_elem.setAttribute("height", "768");
-           image_elem.setAttribute("width", "1024");
+           image_elem.setAttribute("src", image_url);
+           image_elem.setAttribute("height", "70");
+           image_elem.setAttribute("width", "70");
            image_elem.setAttribute("alt", "picture");
+           image_elem.classList.add("img-circle")
+           loc.appendChild(image_elem)
         }
+
+        function sendUserName(){
+            console.log('in send')
+            var name  ={'name':username};
+            $.post(url,name,function(response){
+                if (typeof response === 'string' || response instanceof String){
+                 show_pict(response);}
+                else{
+                    alert('ERRORRRRRR');
+                }
+            });
+        }
+
+        /*
+        $(document).ready(function(){
+
+            $('#sb_btn').click(function(){
+                username = document.getElementById('name').value;
+                console.log(username)
+                sendUserName();
+            });
+        });*/
+
+
+            $("#submit").click(function(event){
+                console.log("HEY")
+                username = document.getElementById('name').value;
+                console.log(username)
+                sendUserName();
+            });
+
+
+
+
     </script>
 </head>
 <body>
     <div class="container">
-        <h1 id="mess">HEY</h1>
-        <form id='myform'>
-            <div class="form-group">
+        <form id="submit" method="post">
+            {% csrf_token %}
+            <div class="form-group" id="block">
                 <label for="name">Name:</label>
-                <input type="text" class="form-control" id="name">
-                <button type="button" class="btn btn-primary" onclick="get_pict()">submit</button>
+                <input type="text" class="form-control" name="username" id="name">
+                <button type="submit" class="btn btn-primary">submit</button>
             </div>
         </form>
     </div>
