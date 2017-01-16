@@ -1,3 +1,4 @@
+'''
 import tweepy
 import json
 import matplotlib.pyplot as plot
@@ -15,12 +16,12 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 
-'''
+
 places  = api.geo_search(query='INDIA',granularity="country")
 place_id = places[0].id
 
 tweets = api.search(q="place:%s" % place_id)
-'''
+
 #places = api.geo_search(query='INDIA',granularity="country")
 
 class MyStreamListener(tweepy.StreamListener):
@@ -97,3 +98,4 @@ if __name__=='__main__':
 #locations=[-89.566389,42.998071,-89.246452,43.171916]
 # india locations=[39.19922, 46.86019, 126.38672, -8.32021]
 
+'''

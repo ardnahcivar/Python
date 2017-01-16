@@ -1,3 +1,4 @@
+'''
 import tweepy
 import re
 import tweepy
@@ -20,3 +21,4 @@ print(image_url)
 correct_one = re.sub('_normal','_bigger',image_url)
 print(correct_one)
 
+'''

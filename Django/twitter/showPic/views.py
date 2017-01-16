@@ -11,15 +11,18 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def index(request):
-    return render(request, 'showPic/index.html')
+    #return render(request, 'showPic/index.html')
+    return render(request, 'showPic/matcher.html')
 
 
 
 @csrf_exempt
 def getUserData(request):
     if request.method == 'POST':
+        print('GEEEEEEEEEEEEEEEEEEEEEEEEEEE')
         if 'name' in request.POST:
             try:
+                #print(request.POST['names'])
                 name = request.POST['name']
                 consumer_key = '3PKwir0C72itjwN47u9NJZ6q5'
                 consumer_secret = 'hog9QoFgtQi65QQrVvrlRlYnuqP5i9FjvkYElXfLfHnAd6kRs2'

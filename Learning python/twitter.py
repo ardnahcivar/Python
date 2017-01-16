@@ -1,3 +1,4 @@
+'''
 import tweepy
 
 import tweepy
@@ -24,7 +25,7 @@ tweets = api.search(q="place:%s" % place_id)
 for tweet in tweets:
     print(tweet.text + " | " + tweet.place.name) if tweet.place else "Undefined place"
 
-"""
+
 public_tweets = api.home_timeline()
 t = api.get_user('@PiyushMulik')
 print(t)
