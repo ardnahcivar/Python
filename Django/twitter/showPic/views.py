@@ -30,13 +30,10 @@ def getUserData(request):
                 api = tweepy.API(auth)
 
                 image_url = api.get_user(name).profile_image_url_https
-                #print('name is', api.get_user(user).name)
-                #print(image_url)
                 correct_one = re.sub('_normal', '_bigger', image_url)
-                #print(correct_one)
-                print('url is ',correct_one)
 
                 return HttpResponse(correct_one)
+
             except Exception as e:
                     return HttpResponse(12)
 
