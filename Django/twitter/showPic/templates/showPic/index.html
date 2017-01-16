@@ -12,34 +12,36 @@
     <script>
 
         var username;
-        var image_elem;
+        var image_elem,image_desc;
         var url = "{% url 'showPic:userData' %}";
         console.log(url)
 
-        function show_pict(image_url){
-           console.log('in picture'+image_url)
-           var loc = document.getElementById('my-container')
+        function show_pict(data){
+           console.log('in picture'+data['image_url'])
+           var loc_image = document.getElementById('med_lft')
+           var loc_desc = document.getElementById('med_bdy');
            var imgs = document.getElementById('myimg')
+           var imgs_desc = document.getElementById('img_desc')
            console.log('imgs is'+imgs)
            if(imgs){
-                    image_elem.setAttribute("src", image_url);
+                    image_elem.setAttribute("src", data['image_url']);
+                    image_desc.textContent = data['description']
            }
            else{
                     image_elem = document.createElement('img');
-                    image_elem.setAttribute("src", image_url);
-                    image_elem.setAttribute("height", "100");
-                    image_elem.setAttribute("width", "100");
-                    image_elem.setAttribute("alt", "picture");
-                    image_elem.setAttribute("display","block");
+                    image_desc = document.createElement('h4');
+
+                    image_elem.setAttribute("src", data['image_url']);
+                    image_elem.classList.add('media-object');
+                    image_elem.setAttribute("height", "60");
                     image_elem.setAttribute("id","myimg");
                     image_elem.classList.add("img-circle")
-                    image_elem.classList.add("img-responsive")
-                    image_elem.classList.add("center-block")
-                    loc.appendChild(image_elem)
+                    loc_image.appendChild(image_elem)
+
+                    image_desc.classList.add('media-heading')
+                    image_desc.textContent = data['description']
+                    loc_desc.append(image_desc);
            }
-
-
-
 
         }
 
@@ -48,7 +50,9 @@
             var name  ={'name':username};
             console.log('name is '+username);
             $.post(url,name,function(response){
-                if (typeof response === 'string' || response instanceof String){
+                response = JSON.parse(response);
+                console.log(response);
+                if (typeof response != null || response != undefined){
                  show_pict(response);}
                 else{
                     alert('ERRORRRRRR');
@@ -56,15 +60,6 @@
             });
         }
 
-        /*
-        $(document).ready(function(){
-
-            $('#sb_btn').click(function(){
-                username = document.getElementById('name').value;
-                console.log(username)
-                sendUserName();
-            });
-        });*/
 
             $(document).ready(function(){
                 $("#submit").submit(function(event){
@@ -111,25 +106,34 @@
                 text-align:center;
             }
         }
+
+
     </style>
 </head>
 <body>
-    <div class="container" id="my-container">
-        <div class="row">
-            <div class="col-md-4 col-xs-12"></div>
+<div class="container" id="my-container">
+    <div class="row">
+        <div class="col-md-4 col-xs-12"></div>
 
-            <div class="col-md-4 col-xs-12">
-                <form  class="form-inline" id="submit" method="post">
-                    {% csrf_token %}
-                    <div class="form-group has-success" id="block">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control form-control-has-success" name="username" id="name">
-                        <button type="submit" class="btn btn-primary btn-lg">submit</button>
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-4 col-xs-12"></div>
+        <div class="col-md-4 col-xs-12">
+            <form class="form-inline" id="submit" method="post">
+                {% csrf_token %}
+                <div class="form-group has-success" id="block">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control form-control-has-success" name="username" id="name">
+                    <button type="submit" class="btn btn-primary btn-lg">submit</button>
+                </div>
+            </form>
         </div>
+        <div class="col-md-4 col-xs-12"></div>
     </div>
+
+    <div class="data">
+        <div class="media">
+            <div class="media-left" id="med_lft"></div>
+        </div>
+        <div class="media-body" id="med_bdy"></div>
+    </div>
+</div>
 </body>
 </html>

@@ -1,5 +1,6 @@
 import re
 import tweepy
+import json
 from django.shortcuts import render
 from django.http import HttpResponse
 from showPic.forms import getUser
@@ -28,14 +29,14 @@ def getUserData(request):
                 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
                 auth.set_access_token(access_token, access_token_secret)
                 api = tweepy.API(auth)
+                user_description = api.get_user(name).description
 
                 image_url = api.get_user(name).profile_image_url_https
                 correct_one = re.sub('_normal', '_bigger', image_url)
-
-                return HttpResponse(correct_one)
+                data = {'image_url': correct_one, 'description': user_description}
+                return HttpResponse(json.dumps(data))
 
             except Exception as e:
                     return HttpResponse(12)
-
     else:
         return HttpResponse('FAILURE')
