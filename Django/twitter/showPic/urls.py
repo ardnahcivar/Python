@@ -3,7 +3,8 @@ from . import views
 
 app_name = 'showPic'
 
-urlpatterns =[
+urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^getUserData/$',views.getUserData, name='userData')
+    url(r'^getUserData/$', views.getUserData, name='userData'),
+    url(r'^getInsights/$', views.getInsights, name='insights')
 ]
