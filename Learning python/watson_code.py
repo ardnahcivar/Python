@@ -60,7 +60,7 @@ def compare(dict1, dict2):
             compared_data[keys] = abs(dict1[keys] - dict2[keys])
     return compared_data
 
-
+ardnahcivar
 #The two Twitter handles
 user_handle = "@Codecademy"
 celebrity_handle = "@IBM"

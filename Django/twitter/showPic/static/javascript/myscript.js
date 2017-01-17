@@ -1,4 +1,14 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script src="static/javascript/fancycharts.js"></script>
+
+
 var url = '/getUserData/';
+// define colors so text can also be colored
+var colors = ["#00ACE4", "#00D8A5", "#9b59b6", "#F1B719", "#e74c3c"];
+
+// init Fancychart with Fancychart(width, height, colors, color_deactivated)
+var chart = new Fancychart(200, 120, colors, '#e5e5e5');
+
 
 
 $(document).ready(function(){
@@ -86,6 +96,15 @@ function insights(data){
             var sb_key = k
             var sb_val = sub_val[k]
             console.log(sb_key+':'+sb_val);
+
+            document.getElementById('pieText').style.color = colors[0];
+            document.getElementById('pieChart').setAttribute('data-value','45');
+            var val = document.getElementById("pieChart").getAttribute('data-value');
+
+            chart.donut("#pieChart", val, colors[0]);
+            console.log('got it');
+
+
           }
     }
 }
