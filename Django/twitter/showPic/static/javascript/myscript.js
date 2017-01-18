@@ -1,13 +1,5 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-<script src="static/javascript/fancycharts.js"></script>
-
 
 var url = '/getUserData/';
-// define colors so text can also be colored
-var colors = ["#00ACE4", "#00D8A5", "#9b59b6", "#F1B719", "#e74c3c"];
-
-// init Fancychart with Fancychart(width, height, colors, color_deactivated)
-var chart = new Fancychart(200, 120, colors, '#e5e5e5');
 
 
 
@@ -80,33 +72,57 @@ function addPictures(data){
 
 
 function insights(data){
+  var keys = [];
+  var sb = [];
+  var  main = [];
+  var obj;
+
   console.log('in insights');
   var names = {'first_user':data['first_user'],'second_user':data['second_user']}
   var url = '/getInsights/';
+
   $.post(url,names,function(response){
-    response = JSON.parse(response)
-    for(var i in response){
-      var key = i;
-      var val = response[i];
-      for(var j in val){
-          var sub_key = j;
-          var sub_val = val[j];
-          console.log('key is'+sub_key);
-          for(var k in sub_val){
-            var sb_key = k
-            var sb_val = sub_val[k]
-            console.log(sb_key+':'+sb_val);
+    if(typeof response != null || response != undefined){
+      response = JSON.parse(response)
+      obj = response
+      for(var i in response){
+        var key = i;
+        var val = response[i];
+        for(var j in val){
+            var sub_key = j;
+            var sub_val = val[j];
+            keys.push(j);
+            console.log('key is'+sub_key);
 
-            document.getElementById('pieText').style.color = colors[0];
-            document.getElementById('pieChart').setAttribute('data-value','45');
-            var val = document.getElementById("pieChart").getAttribute('data-value');
+            for(var k in sub_val){
+              var sb_key = k
+              var sb_val = sub_val[k]
+              console.log(sb_key+':'+sb_val);
+              sb.push({'key':sb_key,'value':sb_val});
+            }
+            main.push(sb);
+      }
+  }
+ }
+ console.log('MAIN DATA is'+main);
+ console.log('keys DATA is'+keys);
+ console.log('subs DATA is'+sb);
+ // define colors so text can also be colored
 
-            chart.donut("#pieChart", val, colors[0]);
-            console.log('got it');
-
-
-          }
-    }
+});
 }
-  });
+
+function visual(){
+  var colors = ["#00ACE4", "#00D8A5", "#9b59b6", "#F1B719", "#e74c3c"];
+
+  // init Fancychart with Fancychart(width, height, colors, color_deactivated)
+  var chart = new Fancychart(200, 120, colors, '#e5e5e5');
+
+  document.getElementById('pieText').style.color = colors[0];
+  console.log('first key is'+main);
+  document.getElementById('pieChart').setAttribute('data-value',89);
+  var val = document.getElementById("pieChart").getAttribute('data-value');
+  document.getElementById('pieText').innerHTML= ' '+keys[0];
+  chart.donut("#pieChart", val, colors[0]);
+  console.log('got it');
 }
