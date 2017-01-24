@@ -103,6 +103,11 @@ function insights(data){
             main.push(sb);
       }
   }
+    for(var i=0;i<keys.length;i++){
+      console.log(i+'->'+keys[i]);
+    }
+    var l = keys[0];
+    console.log('response is'+response[1].Trust);
  }
  console.log('MAIN DATA is'+main);
  console.log('keys DATA is'+keys);
@@ -110,19 +115,4 @@ function insights(data){
  // define colors so text can also be colored
 
 });
-}
-
-function visual(){
-  var colors = ["#00ACE4", "#00D8A5", "#9b59b6", "#F1B719", "#e74c3c"];
-
-  // init Fancychart with Fancychart(width, height, colors, color_deactivated)
-  var chart = new Fancychart(200, 120, colors, '#e5e5e5');
-
-  document.getElementById('pieText').style.color = colors[0];
-  console.log('first key is'+main);
-  document.getElementById('pieChart').setAttribute('data-value',89);
-  var val = document.getElementById("pieChart").getAttribute('data-value');
-  document.getElementById('pieText').innerHTML= ' '+keys[0];
-  chart.donut("#pieChart", val, colors[0]);
-  console.log('got it');
 }

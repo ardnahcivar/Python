@@ -4,6 +4,13 @@ body{
   font-family: Josefin Slab;
 }
 
+ul{
+  list-style-type: none;
+}
+
+li{
+  display: inline;
+}
 /*
 .insights{
 
